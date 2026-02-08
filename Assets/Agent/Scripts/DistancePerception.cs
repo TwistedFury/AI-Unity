@@ -20,7 +20,7 @@ public class DistancePerception : Perception
                 // check if within max angle range
                 Vector3 direction = collider.transform.position - transform.position;
                 float angle = Vector3.Angle(direction, transform.forward);
-                if (angle <= fov)
+                if (angle <= maxHalfAngle)
                 {
                     // add game object to result
                     result.Add(collider.gameObject);
@@ -29,4 +29,13 @@ public class DistancePerception : Perception
         }
         return result.ToArray();
     }
+
+    private void OnDrawGizmos()
+    {
+        if (!debug) return;
+
+        Gizmos.color = debugColor;
+        Gizmos.DrawSphere(transform.position, maxDistance);
+    }
+
 }
